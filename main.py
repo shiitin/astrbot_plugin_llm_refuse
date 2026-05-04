@@ -473,7 +473,7 @@ class LLMRefusePlugin(Star):
             return
 
         # --- 命令消息（以 / 开头）直接阻止，不进入 LLM 流程 ---
-        user_text = event.get_plain_text()
+        user_text = str(event.message)
         if user_text and user_text.strip().startswith("/"):
             event.stop_event()
             return
@@ -490,11 +490,6 @@ class LLMRefusePlugin(Star):
         umo = event.unified_msg_origin
 
         if not _check_feature(self.context, event):
-            return
-
-        # --- 命令消息不解析标签，直接退出 ---
-        user_text = event.get_plain_text()
-        if user_text and user_text.strip().startswith("/"):
             return
 
         result = event.get_result()
