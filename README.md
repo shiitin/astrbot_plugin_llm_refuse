@@ -2,8 +2,9 @@
 
 <div align="center">
 
-![](https://img.shields.io/badge/版本-v1.0.0-blue)
-![](https://img.shields.io/badge/作者-shiitin-39c5bb)
+![](https://img.shields.io/github/v/release/shiitin/astrbot_plugin_llm_refuse?color=blue)
+![](https://img.shields.io/badge/author-shiitin-39c5bb)
+![](https://img.shields.io/github/license/shiitin/astrbot_plugin_llm_refuse)
 
 </div>
 
@@ -94,4 +95,3 @@ on_decorating_result()
   │
   ▼
 发送（或不作回复）
-```
