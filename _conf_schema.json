@@ -1,0 +1,76 @@
+{
+  "feature_mode": {
+    "description": "功能权限模式",
+    "type": "string",
+    "options": [
+      "none",
+      "whitelist",
+      "blacklist"
+    ],
+    "default": "none",
+    "hint": "白名单=仅名单内可用，黑名单=名单内禁用"
+  },
+  "feature_uid_list": {
+    "description": "权限名单",
+    "type": "text",
+    "default": "",
+    "hint": "每行一个完整用户 ID 或会话标识（UMO），仅精确匹配"
+  },
+  "no_reply_enabled": {
+    "description": "拒绝本次回复时，发送预设提示",
+    "type": "bool",
+    "default": false,
+    "hint": "LLM 拒绝回复当前消息时，引用原消息并发送下方文案"
+  },
+  "no_reply_text": {
+    "description": "提示文案",
+    "type": "string",
+    "default": "你已被拒绝回复"
+  },
+  "no_reply_time_enabled": {
+    "description": "会话被拒绝回复时，发送预设提示",
+    "type": "bool",
+    "default": false,
+    "hint": "LLM 拒绝回复整个会话时，引用原消息并发送下方文案"
+  },
+  "no_reply_time_text": {
+    "description": "提示文案",
+    "type": "string",
+    "default": "该会话已被拒绝回复，{time}s后恢复",
+    "hint": "{time}=秒数"
+  },
+  "no_reply_user_enabled": {
+    "description": "用户被拒绝回复时，发送预设提示",
+    "type": "bool",
+    "default": false,
+    "hint": "LLM 拒绝回复指定用户时，引用原消息并发送下方文案"
+  },
+  "no_reply_user_text": {
+    "description": "提示文案",
+    "type": "string",
+    "default": "你已被拒绝回复，{time}s后恢复",
+    "hint": "{time}=秒数, {target}=用户昵称"
+  },
+  "delay_reply_enabled": {
+    "description": "延迟回复时，发送预设提示",
+    "type": "bool",
+    "default": false,
+    "hint": "LLM 延迟回复时，引用原消息并发送下方文案"
+  },
+  "delay_reply_text": {
+    "description": "提示文案",
+    "type": "string",
+    "default": "将在{time}s后回复你",
+    "hint": "{time}=秒数"
+  },
+  "max_delay_seconds": {
+    "description": "单次延迟上限（秒）",
+    "type": "int",
+    "default": 3600
+  },
+  "max_mute_minutes": {
+    "description": "单次拒绝回复上限（分钟）",
+    "type": "int",
+    "default": 1440
+  }
+}
