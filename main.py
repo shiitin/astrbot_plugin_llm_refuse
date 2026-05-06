@@ -471,8 +471,9 @@ class LLMRefusePlugin(Star):
             return
 
         # --- 命令消息（以 / 开头）直接阻止，不进入 LLM 流程 ---
-        user_text = event.message_str
-        if user_text and user_text.strip().startswith("/"):
+        user_text = getattr(event, "message_str", None) or str(getattr(event, "message", ""))
+
+        if any(user_text.strip().startswith(cmd) for cmd in ["/refuse_status", "/refuse_cancel"]):
             event.stop_event()
             return
 
