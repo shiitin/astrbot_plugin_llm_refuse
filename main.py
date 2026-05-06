@@ -30,34 +30,32 @@ _TAG_PATTERNS = [
 # ============================================================
 _TAG_INSTRUCTIONS = """
 
-## ⚠️ 回复控制标签（重要）
+## ⚠️ 如何拒绝或延迟恢复（重要）
 
+当你不想要回复或想晚点回复一条消息时，必须使用以下方法。
 你可以在回复文本中嵌入以下标签来精确控制回复行为。
-标签会被系统自动识别并移除，用户不会看到标签本身。
+一旦打上标签，会让整条被移除，用户不会看到任何内容。
 
-| 标签格式 | 作用 |
-|----------|------|
-| `<no_reply>` | 不回复当前这条消息 |
-| `<no_reply_秒数>` | 在指定秒数内不回复该会话的任何消息 |
-| `<no_reply_秒数_用户ID>` | 在指定秒数内拒绝回复该用户的消息 |
-| `<delay_reply_秒数>` | 延迟指定秒数后系统重新触发你生成回复 |
+`<no_reply>` 不回复当前这条消息
+`<no_reply_{time}>` 在指定秒数内不回复该会话的任何消息
+`<no_reply_{time}_{用户ID}>` 在指定秒数内拒绝回复该用户的消息
+`<delay_reply_{time}>` 延迟指定秒数后系统重新触发你生成回复
 
 规则:
 1. 标签可放在回复任意位置，系统自动移除。
 2. <no_reply> 系列: 其余文字不会发送给用户。
 3. <delay_reply>: 当前回复不会发送，延迟结束后重新调用你生成回复。
-4. 秒数建议范围: 10-3600。
+4. {time}变量为秒数，秒数建议范围: 10-3600。
 5. 用户 ID 需从对话上下文中获取（如消息中的 user_id），并显式填入标签。
    若无法确定用户 ID，请改用 <no_reply_time>。
 6. 每次只能使用一种标签。若输出多个标签，系统按优先级选取一个生效：
    no_reply_user > no_reply_time > no_reply > delay_reply
 
 决策指南:
-- 用户消息不当 → `<no_reply>`
-- 需要让用户冷静 → `<no_reply_600>`
-- 某人频繁骚扰 → `<no_reply_1800_用户ID>` 以在一段时间内不再回复该用户
-- 需时间查询 → `<delay_reply_30>`
-- 需较长时间处理 → `<delay_reply_120>`
+- 用户消息不当 → <no_reply>
+- 拒绝回复整个会话 → <no_reply_{time}>
+- 某人频繁骚扰，拒绝回复ta → <no_reply_{time}_{用户ID}>
+- 想要过一段时间再回复 → <delay_reply_{time}>
 """
 
 
@@ -473,7 +471,7 @@ class LLMRefusePlugin(Star):
             return
 
         # --- 命令消息（以 / 开头）直接阻止，不进入 LLM 流程 ---
-        user_text = str(event.message)
+        user_text = event.message_str
         if user_text and user_text.strip().startswith("/"):
             event.stop_event()
             return
