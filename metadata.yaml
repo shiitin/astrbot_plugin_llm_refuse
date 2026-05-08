@@ -1,6 +1,7 @@
 name: astrbot_plugin_llm_refuse
 desc: 允许LLM自主拒绝回复、临时拒绝回复指定用户或会话、延迟重触发回复。支持功能白名单/黑名单。
 author: shiitin
+repo: https://github.com/shiitin/astrbot_plugin_llm_refuse
 version: 1.0.0
 display_name: LLM 自主拒绝回复
 support_platforms:

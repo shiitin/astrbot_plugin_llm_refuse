@@ -610,7 +610,7 @@ class LLMRefusePlugin(Star):
         if not found:
             lines.append("  (无)")
 
-        lines.append("\n📜 **全部活跃拒绝回复状态:**")
+        lines.append("\n[全部活跃拒绝回复状态]")
         active = {k: v for k, v in _mute_state.items() if now < v["until"]}
         if active:
             for key, entry in active.items():
@@ -619,7 +619,7 @@ class LLMRefusePlugin(Star):
         else:
             lines.append("  (无)")
 
-        lines.append("\n⏳ **延迟重触发任务:**")
+        lines.append("\n[延迟重触发任务]")
         if umo in _delayed_retrigger:
             pending = [t for t in _delayed_retrigger[umo] if not t.done()]
             lines.append(f"  {len(pending)} 个待触发")
