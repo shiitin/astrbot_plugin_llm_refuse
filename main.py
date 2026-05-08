@@ -450,11 +450,13 @@ class LLMRefusePlugin(Star):
             # 根据作用域选择对应的提示模板
             if scope == "user":
                 # 用户级拒绝回复状态：使用 no_reply_user 配置
+                target_name = _resolve_name(event, event.get_sender_id())
                 chain = _build_reply_chain(
                     event,
                     enabled=self.config.get("no_reply_user_enabled", False),
                     template=self.config.get("no_reply_user_text", "你已被拒绝回复，{time}s后恢复"),
                     time=remaining,
+                    target=target_name,
                 )
             else:
                 # 会话级拒绝回复状态：使用 no_reply_time 配置
